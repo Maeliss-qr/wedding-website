@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Family {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  name          String   @unique
+  attendsBrunch Boolean?
+  staysAtGite   Boolean  @default(false)
+  message       String?
+  guests        Guest[]
+}
+
+model Guest {
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  firstName      String
+  lastName       String
+  firstNameNorm  String   @default("")
+  lastNameNorm   String   @default("")
+  attending            Boolean?
+  mealPreference       String?
+  dietaryRestrictions  String?
+  attendsBrunch        Boolean?
+  message              String?
+  familyId       Int?
+  family         Family?  @relation(fields: [familyId], references: [id])
+
+  @@unique([firstName, lastName])
+  @@index([attending])
+  @@index([firstNameNorm, lastNameNorm])
+}
