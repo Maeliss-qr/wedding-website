@@ -35,25 +35,19 @@ export default function CountdownTimer() {
   ];
 
   return (
-    <section className="py-16 px-6" style={{ backgroundColor: "#5e6a8f" }}>
-      <p
-        className="text-center text-xs tracking-[0.3em] uppercase text-stone-400 mb-8"
-        style={{ fontFamily: "var(--font-sans)" }}
-      >
-        Compte à rebours
-      </p>
+    <section className="py-16 px-6 bg-background">
       <div className="flex justify-center gap-8 md:gap-16">
         {units.map(({ label, value }) => (
           <div key={label} className="text-center">
             <span
-              className="block text-5xl md:text-6xl font-light text-stone-100 tabular-nums"
+              className="block text-5xl md:text-6xl font-light text-stone-800 tabular-nums"
               style={{ fontFamily: "var(--font-serif)" }}
             >
               {String(value).padStart(2, "0")}
             </span>
             <span
-              className="block text-xs tracking-widest uppercase text-stone-400 mt-2"
-              style={{ fontFamily: "var(--font-sans)" }}
+              className="block text-xs tracking-widest uppercase text-stone-800 mt-2"
+              style={{ fontFamily: "var(--font-serif)" }}
             >
               {label}
             </span>

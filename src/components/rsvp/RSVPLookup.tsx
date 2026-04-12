@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import FamilyRSVPForm from "@/components/rsvp/FamilyRSVPForm";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 type GuestData = {
   id: number;
@@ -35,7 +36,6 @@ type Step =
 
 export default function RSVPLookup() {
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState<Step>({ name: "identify" });
@@ -49,7 +49,7 @@ export default function RSVPLookup() {
       const res = await fetch("/api/rsvp/lookup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName }),
+        body: JSON.stringify({ firstName }),
       });
 
       if (!res.ok) {
@@ -89,27 +89,15 @@ export default function RSVPLookup() {
   if (step.name === "identify") {
     return (
       <form onSubmit={handleLookup} className="space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className={labelClass}>Prénom *</label>
-            <input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className={inputClass}
-              placeholder="Sophie"
-              autoComplete="given-name"
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Nom *</label>
-            <input
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className={inputClass}
-              placeholder="Dupont"
-              autoComplete="family-name"
-            />
-          </div>
+        <div>
+          <label className={labelClass}>Prénom *</label>
+          <input
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className={inputClass}
+            placeholder="Sophie"
+            autoComplete="given-name"
+          />
         </div>
 
         {error && (
@@ -118,14 +106,15 @@ export default function RSVPLookup() {
           </div>
         )}
 
-        <button
+        <Button
           type="submit"
-          disabled={loading || !firstName.trim() || !lastName.trim()}
-          className="w-full py-4 bg-stone-800 text-stone-100 text-sm tracking-[0.2em] uppercase hover:bg-stone-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          style={{ fontFamily: "var(--font-sans)" }}
+          variant="primary"
+          disabled={loading || !firstName.trim()}
+          fullWidth
+          size="lg"
         >
           {loading ? "Recherche..." : "Trouver ma réponse"}
-        </button>
+        </Button>
       </form>
     );
   }
@@ -142,11 +131,11 @@ export default function RSVPLookup() {
               key={g.id}
               type="button"
               onClick={() => setStep({ name: "form", guest: g })}
-              className="w-full px-4 py-3 border border-stone-200 text-left text-sm text-stone-700 hover:border-stone-400 hover:bg-stone-50 transition-colors"
+              className={buttonVariants({ variant: "primary", size: "lg", fullWidth: true })}
             >
               {g.firstName} {g.lastName}
               {g.family && (
-                <span className="text-stone-400 ml-2">— {g.family.name}</span>
+                <span className="ml-2 opacity-60">— {g.family.name}</span>
               )}
             </button>
           ))}

@@ -1,97 +1,105 @@
 import Link from "next/link";
 import Image from "next/image";
 import { WEDDING } from "@/lib/constants";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function Hero() {
   const formattedDate = new Intl.DateTimeFormat("fr-FR", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
     day: "numeric",
+    month: "long",
+    year: "numeric",
   }).format(WEDDING.date);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-stone-900">
-      {/* Background photo */}
-      <Image
-        src="/hero.webp"
-        alt="Maëliss & Stanislas"
-        fill
-        className="object-cover object-center"
-        priority
-        quality={85}
-      />
-      {/* Dark overlay for text legibility */}
-      <div className="absolute inset-0 bg-black/40" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center bg-background px-6 py-20 text-center overflow-hidden">
 
-      <div className="relative text-center px-6 py-20">
-        <p
-          className="text-sm tracking-[0.3em] uppercase text-white/60 mb-6"
-          style={{ fontFamily: "var(--font-sans)" }}
-        >
-          Avec leurs familles
-        </p>
+      {/* Names */}
+      <h1
+        className="text-[52px] font-light text-stone-800 leading-none tracking-wide uppercase"
+        style={{ fontFamily: "var(--font-serif)" }}
+      >
+        {WEDDING.bride}
+      </h1>
 
-        <h1
-          className="text-7xl md:text-9xl font-light text-white mb-2 leading-none drop-shadow-lg"
-          style={{ fontFamily: "var(--font-serif)" }}
-        >
-          {WEDDING.bride}
-        </h1>
+      <p
+        className="text-[40px] text-stone-800 my-2 leading-none font-light"
+        style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
+      >
+        &amp;
+      </p>
 
-        <p
-          className="text-3xl md:text-4xl text-white/70 my-4"
-          style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
-        >
-          &amp;
-        </p>
+      <h1
+        className="text-[52px] font-light text-stone-800 leading-none tracking-wide uppercase"
+        style={{ fontFamily: "var(--font-serif)" }}
+      >
+        {WEDDING.groom}
+      </h1>
 
-        <h1
-          className="text-7xl md:text-9xl font-light text-white mb-10 leading-none drop-shadow-lg"
-          style={{ fontFamily: "var(--font-serif)" }}
-        >
-          {WEDDING.groom}
-        </h1>
+      {/* Date */}
+      <p
+        className="text-2xl md:text-3xl text-stone-500 mt-4 mb-16"
+        style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
+      >
+        {formattedDate}
+      </p>
 
-        <div className="w-16 h-px bg-white/40 mx-auto mb-8" />
+      {/* Polaroid photo */}
+      <div className="relative z-10 mb-16">
+        {/* SVG filter — torn paper effect */}
+        <svg style={{ position: "absolute", width: 0, height: 0 }}>
+          <defs>
+            <filter id="hero-torn-paper" x="-6%" y="-6%" width="112%" height="112%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="3" seed="5" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+        </svg>
 
-        <p
-          className="text-lg md:text-xl text-white/80 tracking-widest uppercase mb-2"
-          style={{ fontFamily: "var(--font-sans)", fontWeight: 300 }}
-        >
-          {formattedDate}
-        </p>
+        {/* Flower — derrière la photo */}
+        <Image
+          src="/flower.png"
+          alt=""
+          width={132}
+          height={228}
+          className="absolute -bottom-32 -left-16 pointer-events-none z-0 opacity-90"
+        />
 
-        <p
-          className="text-base text-white/60 mb-12"
-          style={{ fontFamily: "var(--font-sans)" }}
-        >
-          {WEDDING.venue.name} &bull; Auneau, France
-        </p>
+        {/* Tape decoration — coin haut-droite en diagonale */}
+        <Image
+          src="/tape.png"
+          alt=""
+          width={75}
+          height={27}
+          className="absolute top-5 right-0 translate-x-1/2 -translate-y-1/2 rotate-45 z-20"
+          style={{ filter: "hue-rotate(85deg) saturate(0.28) brightness(0.92)" }}
+        />
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/rsvp"
-            className="inline-block px-10 py-4 text-stone-100 text-sm tracking-[0.2em] uppercase transition-colors"
-            style={{ backgroundColor: "#5e6a8f" }}
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            RSVP
-          </Link>
-          <a
-            href="#details"
-            className="inline-block px-10 py-4 border border-white/50 text-white text-sm tracking-[0.2em] uppercase hover:border-white transition-colors"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            Détails
-          </a>
+        <div className="relative z-10 -rotate-[-4deg] w-56 md:w-64">
+          {/* White border with torn effect */}
+          <div
+            className="absolute inset-0 bg-white"
+            style={{ filter: 'url(#hero-torn-paper) drop-shadow(0 4px 12px rgba(0,0,0,0.15))' }}
+          />
+          {/* Image content */}
+          <div className="relative p-[4px]">
+            <div className="relative w-full aspect-square overflow-hidden">
+              <Image
+                src="/hero.jpg"
+                alt="Maëliss & Stanislas"
+                fill
+                className="object-cover object-center grayscale"
+                priority
+                quality={85}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <div className="w-px h-12 bg-white/30 animate-pulse" />
-      </div>
+      {/* CTA */}
+      <Link href="/rsvp" className={buttonVariants({ variant: "primary", size: "lg" }) + " relative z-10"}>
+        Confirmez votre venue
+      </Link>
     </section>
   );
 }

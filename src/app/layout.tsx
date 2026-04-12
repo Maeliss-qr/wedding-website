@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Lato } from "next/font/google";
+import { Cormorant_Garamond, Cormorant_Infant, Lato } from "next/font/google";
 import "./globals.css";
+
+const cormorantInfant = Cormorant_Infant({
+  variable: "--font-infant",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
+});
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
@@ -16,6 +23,7 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: "Maëliss & Stanislas — 5 septembre 2026",
+  // Date source: WEDDING.date in src/lib/constants.ts
   description: "Rejoignez-nous pour célébrer notre mariage.",
 };
 
@@ -27,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${cormorant.variable} ${lato.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${cormorantInfant.variable} ${lato.variable} h-full antialiased`}
     >
 
       <body

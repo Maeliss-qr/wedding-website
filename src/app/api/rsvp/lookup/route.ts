@@ -1,33 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { normalizeName } from "@/lib/utils";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const firstName = typeof body.firstName === "string" ? body.firstName : "";
-    const lastName = typeof body.lastName === "string" ? body.lastName : "";
+    const firstName = typeof body.firstName === "string" ? body.firstName.trim() : "";
 
-    if (!firstName || !lastName) {
-      return NextResponse.json({ error: "Prénom et nom requis" }, { status: 400 });
+    if (!firstName) {
+      return NextResponse.json({ error: "Prénom requis" }, { status: 400 });
     }
 
-    const firstNameNorm = normalizeName(firstName);
-    const lastNameNorm = normalizeName(lastName);
+    const matches = await prisma.$queryRaw<{ id: number }[]>`
+      SELECT id FROM "Guest"
+      WHERE normalize_name("firstName") LIKE '%' || normalize_name(${firstName}) || '%'
+    `;
 
-    const allGuests = await prisma.guest.findMany({
+    const guests = await prisma.guest.findMany({
+      where: { id: { in: matches.map((r) => r.id) } },
       include: {
         family: {
           include: { guests: { orderBy: { firstName: "asc" } } },
         },
       },
     });
-
-    const guests = allGuests.filter(
-      (g) =>
-        normalizeName(g.firstName).includes(firstNameNorm) &&
-        normalizeName(g.lastName).includes(lastNameNorm)
-    );
 
     return NextResponse.json({ guests });
   } catch {

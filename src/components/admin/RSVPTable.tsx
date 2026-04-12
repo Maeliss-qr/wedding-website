@@ -56,7 +56,7 @@ export default function RSVPTable({ guests }: { guests: Guest[] }) {
               onClick={() => setFilter(f)}
               className={`px-4 py-2 text-xs tracking-wider uppercase transition-colors ${
                 filter === f
-                  ? "bg-stone-800 text-stone-100"
+                  ? "bg-white text-[#656B51] border border-[#656B51]"
                   : "border border-stone-200 text-stone-500 hover:border-stone-400"
               }`}
             >

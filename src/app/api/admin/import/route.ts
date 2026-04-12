@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyAdminToken } from "@/lib/auth";
-import { normalizeName } from "@/lib/utils";
 
 export async function POST(req: NextRequest) {
   const token = req.cookies.get("admin_token")?.value;
@@ -60,18 +59,15 @@ export async function POST(req: NextRequest) {
         where: { firstName_lastName: { firstName, lastName } },
       });
 
-      const firstNameNorm = normalizeName(firstName);
-      const lastNameNorm = normalizeName(lastName);
-
       if (existing) {
         await prisma.guest.update({
           where: { id: existing.id },
-          data: { familyId, firstNameNorm, lastNameNorm },
+          data: { familyId },
         });
         updated++;
       } else {
         await prisma.guest.create({
-          data: { firstName, lastName, firstNameNorm, lastNameNorm, familyId },
+          data: { firstName, lastName, familyId },
         });
         created++;
       }

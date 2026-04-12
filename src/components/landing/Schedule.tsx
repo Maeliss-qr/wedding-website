@@ -8,11 +8,11 @@ const schedule = [
 
 export default function Schedule() {
   return (
-    <section className="py-24 px-6 bg-stone-50">
+    <section className="py-24 px-6 bg-background">
       <div className="max-w-2xl mx-auto">
         <h2
           className="text-4xl md:text-5xl font-light text-center mb-4"
-          style={{ fontFamily: "var(--font-serif)", color: "#5e6a8f" }}
+          style={{ fontFamily: "var(--font-serif)" }}
         >
           Programme de la journée
         </h2>

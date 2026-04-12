@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-stone-50 flex items-center justify-center px-6">
+    <main className="min-h-screen bg-background flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <h1
           className="text-4xl font-light text-stone-800 mb-8 text-center"
@@ -61,14 +62,9 @@ export default function AdminLoginPage() {
             {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 bg-stone-800 text-stone-100 text-sm tracking-[0.2em] uppercase hover:bg-stone-700 transition-colors disabled:opacity-50"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
+          <Button type="submit" disabled={loading} fullWidth>
             {loading ? "..." : "Connexion"}
-          </button>
+          </Button>
         </form>
       </div>
     </main>

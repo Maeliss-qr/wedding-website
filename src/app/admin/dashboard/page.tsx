@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import RSVPTable from "@/components/admin/RSVPTable";
 import ImportButton from "@/components/admin/ImportButton";
 import Link from "next/link";
+import { WEDDING } from "@/lib/constants";
 
 export default async function AdminDashboard() {
   const cookieStore = await cookies();
@@ -42,7 +43,7 @@ export default async function AdminDashboard() {
   }));
 
   return (
-    <main className="min-h-screen bg-stone-50 py-12 px-6">
+    <main className="min-h-screen bg-background py-12 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -52,7 +53,9 @@ export default async function AdminDashboard() {
             >
               Tableau de bord
             </h1>
-            <p className="text-stone-400 text-sm mt-1">Maëliss &amp; Stanislas — 5 septembre 2026</p>
+            <p className="text-stone-400 text-sm mt-1">Maëliss &amp; Stanislas —{" "}
+              {new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(WEDDING.date)}
+            </p>
           </div>
           <div className="flex items-start gap-3">
             <ImportButton />

@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Family {
@@ -23,8 +23,6 @@ model Guest {
   updatedAt      DateTime @updatedAt
   firstName      String
   lastName       String
-  firstNameNorm  String   @default("")
-  lastNameNorm   String   @default("")
   attending            Boolean?
   mealPreference       String?
   dietaryRestrictions  String?
@@ -35,5 +33,4 @@ model Guest {
 
   @@unique([firstName, lastName])
   @@index([attending])
-  @@index([firstNameNorm, lastNameNorm])
 }

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { rsvpSchema } from "@/lib/schemas/rsvp";
-import { normalizeName } from "@/lib/utils";
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -17,9 +15,6 @@ export async function POST(req: NextRequest) {
 
     const data = parsed.data;
 
-    const firstNameNorm = normalizeName(data.firstName);
-    const lastNameNorm = normalizeName(data.lastName);
-
     const guest = await prisma.guest.upsert({
       where: {
         firstName_lastName: {
@@ -30,14 +25,10 @@ export async function POST(req: NextRequest) {
       update: {
         attending: data.attending,
         mealPreference: data.attending ? (data.mealPreference ?? null) : null,
-        firstNameNorm,
-        lastNameNorm,
       },
       create: {
         firstName: data.firstName,
         lastName: data.lastName,
-        firstNameNorm,
-        lastNameNorm,
         attending: data.attending,
         mealPreference: data.attending ? (data.mealPreference ?? null) : null,
       },

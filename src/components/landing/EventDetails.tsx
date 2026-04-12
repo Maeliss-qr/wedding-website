@@ -1,35 +1,41 @@
+import Image from "next/image";
 import { WEDDING } from "@/lib/constants";
+import TornCard from "@/components/ui/torn-card";
 
 export default function EventDetails() {
   return (
-    <section id="details" className="py-24 px-6 bg-white">
+    <section id="details" className="py-24 px-6 bg-background">
       <div className="max-w-4xl mx-auto">
         <h2
           className="text-4xl md:text-5xl font-light text-center mb-4"
-          style={{ fontFamily: "var(--font-serif)", color: "#5e6a8f" }}
+          style={{ fontFamily: "var(--font-serif)" }}
         >
-          Informations pratiques
+          Déroulé du jour
         </h2>
         <div className="w-12 h-px bg-stone-300 mx-auto mb-16" />
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="border border-stone-100 p-8 hover:shadow-sm transition-shadow">
+        {/* SVG filter pour l'effet papier arraché */}
+        <svg style={{ position: "absolute", width: 0, height: 0 }}>
+          <defs>
+            <filter id="torn-paper" x="-6%" y="-6%" width="112%" height="112%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="3" seed="5" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+        </svg>
+
+        <div className="flex flex-col gap-8">
+          <TornCard>
             <p
               className="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4"
               style={{ fontFamily: "var(--font-sans)" }}
             >
               Cérémonie
             </p>
-            <p
-              className="text-2xl text-stone-700 mb-2"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
-              15h00
-            </p>
-            <p className="text-stone-500 text-sm">{WEDDING.venue.name}</p>
-            <p className="text-stone-400 text-sm mt-1">{WEDDING.venue.address}</p>
+            <p className="text-2xl text-stone-700 mb-2" style={{ fontFamily: "var(--font-serif)" }}>15h00</p>
+            <p className="text-stone-500 text-sm mb-4">{WEDDING.venue.name}</p>
             <a
-              href={WEDDING.venue.mapsUrl}
+              href="https://maps.app.goo.gl/KL9c1EM6oKq1AGqt8"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-4 text-xs tracking-wider uppercase text-stone-500 border-b border-stone-300 hover:border-stone-500 transition-colors"
@@ -37,53 +43,58 @@ export default function EventDetails() {
             >
               Itinéraire →
             </a>
-          </div>
+          </TornCard>
 
-          <div className="border border-stone-100 p-8 hover:shadow-sm transition-shadow">
+          <TornCard
+            imageRight={
+              <Image
+                src="/watercolor-reception.png"
+                alt=""
+                fill
+                className="object-contain object-right"
+              />
+            }
+          >
             <p
               className="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Réception
+              Cocktail
             </p>
-            <p
-              className="text-2xl text-stone-700 mb-2"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
-              16h00
-            </p>
-            <p className="text-stone-500 text-sm">{WEDDING.venue.name}</p>
-            <p className="text-stone-400 text-sm mt-1">Dîner et fête à suivre</p>
-            <p
-              className="inline-block mt-4 text-xs tracking-wider uppercase text-stone-400"
+            <p className="text-2xl text-stone-700 mb-2" style={{ fontFamily: "var(--font-serif)" }}>16h00</p>
+            <p className="text-stone-500 text-sm mb-4">{WEDDING.venue.name}</p>
+            <a
+              href="https://maps.app.goo.gl/mSNSsTyXy2L4mG8w5"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block mt-2 text-xs tracking-wider uppercase text-stone-500 border-b border-stone-300 hover:border-stone-500 transition-colors w-fit"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Tenue de soirée conseillée
+              Itinéraire →
+            </a>
+          </TornCard>
+
+          <TornCard>
+            <p
+              className="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              Dîner
             </p>
-          </div>
+            <p className="text-2xl text-stone-700 mb-2" style={{ fontFamily: "var(--font-serif)" }}>18h00</p>
+            <p className="text-stone-500 text-sm mb-4">{WEDDING.venue.name}</p>
+            <a
+              href="https://maps.app.goo.gl/mSNSsTyXy2L4mG8w5"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 text-xs tracking-wider uppercase text-stone-500 border-b border-stone-300 hover:border-stone-500 transition-colors"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              Itinéraire →
+            </a>
+          </TornCard>
         </div>
 
-        <div className="mt-8 border border-stone-100 p-8 text-center hover:shadow-sm transition-shadow">
-          <p
-            className="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            Date limite de réponse
-          </p>
-          <p
-            className="text-2xl text-stone-700"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            {new Intl.DateTimeFormat("fr-FR", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            }).format(WEDDING.rsvpDeadline)}
-          </p>
-          <p className="text-stone-400 text-sm mt-2">
-            Merci de répondre avant cette date afin que nous puissions organiser au mieux.
-          </p>
-        </div>
       </div>
     </section>
   );

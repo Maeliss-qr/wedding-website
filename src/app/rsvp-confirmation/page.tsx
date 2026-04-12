@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { WEDDING } from "@/lib/constants";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function ConfirmationPage() {
   return (
-    <main className="min-h-screen bg-stone-50 flex items-center justify-center px-6">
+    <main className="min-h-screen bg-background flex items-center justify-center px-6">
       <div className="max-w-md mx-auto text-center">
         <div className="text-4xl mb-8">✦</div>
 
@@ -19,23 +20,17 @@ export default function ConfirmationPage() {
           Votre réponse a bien été enregistrée.
         </p>
         <p className="text-stone-400 text-sm mb-10">
-          Nous sommes ravis de fêter cela avec vous le 12 septembre 2026 au{" "}
+          Nous sommes ravis de fêter cela avec vous le{" "}
+          {new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(WEDDING.date)}{" "}
+          au{" "}
           {WEDDING.venue.name}.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/"
-            className="inline-block px-8 py-3 border border-stone-300 text-stone-600 text-sm tracking-[0.15em] uppercase hover:border-stone-500 transition-colors"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
+          <Link href="/" className={buttonVariants({ variant: "outline" })}>
             Retour à l&apos;accueil
           </Link>
-          <Link
-            href="/rsvp"
-            className="inline-block px-8 py-3 bg-stone-800 text-stone-100 text-sm tracking-[0.15em] uppercase hover:bg-stone-700 transition-colors"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
+          <Link href="/rsvp" className={buttonVariants({ variant: "primary" })}>
             Modifier ma réponse
           </Link>
         </div>

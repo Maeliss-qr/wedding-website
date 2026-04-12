@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -143,14 +144,14 @@ export default function RSVPForm() {
         </div>
       )}
 
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-stone-800 text-stone-100 text-sm tracking-[0.2em] uppercase hover:bg-stone-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        style={{ fontFamily: "var(--font-sans)" }}
+        fullWidth
+        size="lg"
       >
         {isSubmitting ? "Envoi..." : "Envoyer ma réponse"}
-      </button>
+      </Button>
     </form>
   );
 }

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import RSVPLookup from "@/components/rsvp/RSVPLookup";
+import TornCard from "@/components/ui/torn-card";
 import { WEDDING } from "@/lib/constants";
 
 export default function RSVPPage() {
   return (
-    <main className="min-h-screen bg-stone-50 py-20 px-6">
+    <main className="min-h-screen bg-background py-20 px-6">
       <div className="max-w-xl mx-auto">
         <Link
           href="/"
@@ -24,7 +25,8 @@ export default function RSVPPage() {
           className="text-stone-500 mb-2"
           style={{ fontFamily: "var(--font-sans)" }}
         >
-          {WEDDING.bride} &amp; {WEDDING.groom} — 12 septembre 2026
+          {WEDDING.bride} &amp; {WEDDING.groom} —{" "}
+          {new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(WEDDING.date)}
         </p>
         <p className="text-stone-400 text-sm mb-10">
           Merci de répondre avant le{" "}
@@ -36,9 +38,18 @@ export default function RSVPPage() {
           .
         </p>
 
-        <div className="bg-white p-8 shadow-sm">
+        <svg style={{ position: "absolute", width: 0, height: 0 }}>
+          <defs>
+            <filter id="torn-paper" x="-6%" y="-6%" width="112%" height="112%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="3" seed="5" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+        </svg>
+
+        <TornCard>
           <RSVPLookup />
-        </div>
+        </TornCard>
       </div>
     </main>
   );

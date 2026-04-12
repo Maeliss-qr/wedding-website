@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "@/components/ui/Select";
+import { Button } from "@/components/ui/button";
 import { MEAL_OPTIONS } from "@/lib/constants";
 
 type GuestData = {
@@ -262,14 +263,15 @@ export default function FamilyRSVPForm({
       )}
 
       <div className="flex flex-col gap-3">
-        <button
+        <Button
           type="submit"
+          variant="primary"
           disabled={submitting}
-          className="w-full py-4 bg-stone-800 text-stone-100 text-sm tracking-[0.2em] uppercase hover:bg-stone-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          style={{ fontFamily: "var(--font-sans)" }}
+          fullWidth
+          size="lg"
         >
           {submitting ? "Envoi..." : "Envoyer notre réponse"}
-        </button>
+        </Button>
         <button
           type="button"
           onClick={onBack}
