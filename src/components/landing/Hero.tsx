@@ -88,8 +88,9 @@ export default function Hero() {
                 alt="Maëliss & Stanislas"
                 fill
                 className="object-cover object-center grayscale"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 priority
-                quality={85}
+                quality={90}
               />
             </div>
           </div>

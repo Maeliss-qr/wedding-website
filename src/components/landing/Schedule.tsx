@@ -23,7 +23,7 @@ export default function Schedule() {
 
           <div className="space-y-10">
             {schedule.map(({ time, event, description }) => (
-              <div key={event} className="flex gap-8 items-start relative">
+              <div key={event} className="flex gap-8 items-start relative max-w-sm">
                 <div
                   className="w-24 flex-shrink-0 text-right text-sm text-stone-400"
                   style={{ fontFamily: "var(--font-sans)", paddingTop: "2px" }}

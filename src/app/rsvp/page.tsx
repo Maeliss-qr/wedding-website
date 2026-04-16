@@ -21,15 +21,11 @@ export default function RSVPPage() {
         >
           RSVP
         </h1>
-        <p
-          className="text-stone-500 mb-2"
-          style={{ fontFamily: "var(--font-sans)" }}
-        >
-          {WEDDING.bride} &amp; {WEDDING.groom} —{" "}
-          {new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(WEDDING.date)}
-        </p>
-        <p className="text-stone-400 text-sm mb-10">
-          Merci de répondre avant le{" "}
+      
+        <p className="text-stone-500 text-lg mb-10"
+           style={{ fontFamily: "var(--font-serif)" }}>
+          Nous espérons que vous pourrez vous joindre à nous ! 
+          <br /> Pour nous aider à organiser au mieux cette journée, nous vous demandons de confirmer votre venue avant le {" "}
           {new Intl.DateTimeFormat("fr-FR", {
             month: "long",
             day: "numeric",

@@ -5,13 +5,22 @@ interface PolaroidDividerProps {
   rotate?: number;
   tapePosition?: "top-left" | "top-right" | "top-center";
   aspect?: "square" | "portrait" | "landscape" | "tall" | "round";
-}
+  tapeColor?: "green" | "blue" | "terracotta";
+  }
+
+
+const tapeColors = {
+  green:     "hue-rotate(85deg) saturate(0.28) brightness(0.92)",
+  blue:      "hue-rotate(210deg) saturate(0.25) brightness(0.85)",
+  neutral: "hue-rotate(-30deg) saturate(0.75) brightness(0.88)",
+};
 
 const tapeStyles = {
   "top-right":  "absolute -top-3 right-2 translate-x-1/2 rotate-45",
   "top-left":   "absolute -top-3 left-2 -translate-x-1/2 -rotate-45",
   "top-center": "absolute -top-3 left-1/2 -translate-x-1/2 -rotate-12",
 };
+
 
 const aspectStyles = {
   square:    "aspect-square",
@@ -26,6 +35,7 @@ export default function PolaroidDivider({
   rotate = -3,
   tapePosition = "top-right",
   aspect = "square",
+  tapeColor = "neutral",
 }: PolaroidDividerProps) {
   return (
     <div className="flex justify-center py-4 bg-background">
@@ -45,7 +55,7 @@ export default function PolaroidDivider({
           width={75}
           height={27}
           className={`${tapeStyles[tapePosition]} z-20`}
-          style={{ filter: "hue-rotate(85deg) saturate(0.28) brightness(0.92)" }}
+          style={{ filter: tapeColors[tapeColor] }}
         />
 
         <div className="relative w-[60vw] md:w-96">
@@ -59,8 +69,9 @@ export default function PolaroidDivider({
                 src={src}
                 alt=""
                 fill
-                className="object-cover object-center grayscale"
-                quality={80}
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 60vw, 384px"
+                quality={95}
               />
             </div>
           </div>
