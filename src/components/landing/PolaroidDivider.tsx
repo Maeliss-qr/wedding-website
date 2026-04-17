@@ -35,7 +35,7 @@ export default function PolaroidDivider({
   rotate = -3,
   tapePosition = "top-right",
   aspect = "square",
-  tapeColor = "neutral",
+  tapeColor = "green",
 }: PolaroidDividerProps) {
   return (
     <div className="flex justify-center py-4 bg-background">
