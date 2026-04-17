@@ -12,7 +12,7 @@ interface PolaroidDividerProps {
 const tapeColors = {
   green:     "hue-rotate(85deg) saturate(0.28) brightness(0.92)",
   blue:      "hue-rotate(210deg) saturate(0.25) brightness(0.85)",
-  neutral: "hue-rotate(-30deg) saturate(0.75) brightness(0.88)",
+  terracotta: "hue-rotate(-30deg) saturate(0.75) brightness(0.88)",
 };
 
 const tapeStyles = {
