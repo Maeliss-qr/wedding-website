@@ -134,9 +134,6 @@ export default function RSVPLookup() {
               className={buttonVariants({ variant: "primary", size: "lg", fullWidth: true })}
             >
               {g.firstName} {g.lastName}
-              {g.family && (
-                <span className="ml-2 opacity-60">— {g.family.name}</span>
-              )}
             </button>
           ))}
         </div>

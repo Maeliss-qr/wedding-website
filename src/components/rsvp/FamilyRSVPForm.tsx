@@ -138,13 +138,6 @@ export default function FamilyRSVPForm({
 
   return (
     <form onSubmit={onSubmit} className="space-y-8">
-      {familyName && (
-        <div className="pb-2 border-b border-stone-100">
-          <p className="text-xs tracking-[0.15em] uppercase text-stone-400">
-            {guests.length > 1 ? `Famille ${familyName}` : familyName}
-          </p>
-        </div>
-      )}
 
       {guests.map((guest, i) => {
         const response = responses.find((r) => r.id === guest.id)!;
@@ -216,7 +209,7 @@ export default function FamilyRSVPForm({
         <div>
           <label className={labelClass}>Brunch du lendemain</label>
           <p className="text-sm text-stone-400 mb-3">
-            Le lendemain du mariage, un brunch sera organisé. Serez-vous présent(s) ?
+            Le lendemain du mariage, un brunch sera organisé à partir de 11h, à la Bergerie du Merinos. 
           </p>
           <div className="grid grid-cols-2 gap-3">
             {[

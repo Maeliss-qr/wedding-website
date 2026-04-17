@@ -10,13 +10,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Prénom requis" }, { status: 400 });
     }
 
-    const matches = await prisma.$queryRaw<{ id: number }[]>`
-      SELECT id FROM "Guest"
-      WHERE normalize_name("firstName") LIKE '%' || normalize_name(${firstName}) || '%'
-    `;
-
     const guests = await prisma.guest.findMany({
-      where: { id: { in: matches.map((r) => r.id) } },
+      where: {
+        firstName: { contains: firstName, mode: "insensitive" },
+      },
       include: {
         family: {
           include: { guests: { orderBy: { firstName: "asc" } } },
@@ -25,7 +22,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ guests });
-  } catch {
+  } catch (err) {
+    console.error("[rsvp/lookup]", err);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
