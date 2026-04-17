@@ -7,6 +7,8 @@ import ImportButton from "@/components/admin/ImportButton";
 import Link from "next/link";
 import { WEDDING } from "@/lib/constants";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboard() {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_token")?.value;
