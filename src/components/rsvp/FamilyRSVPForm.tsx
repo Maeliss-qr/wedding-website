@@ -204,34 +204,6 @@ export default function FamilyRSVPForm({
         );
       })}
 
-      {/* Brunch */}
-      <div className="pt-8 border-t border-stone-100 space-y-3">
-        <div>
-          <label className={labelClass}>Brunch du lendemain</label>
-          <p className="text-sm text-stone-400 mb-3">
-            Le lendemain du mariage, un brunch sera organisé à partir de 11h, à la Bergerie du Merinos. 
-          </p>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { value: true, label: "Oui, avec plaisir" },
-              { value: false, label: "Non merci" },
-            ].map(({ value, label }) => (
-              <label key={String(value)} className="relative cursor-pointer">
-                <input
-                  type="radio"
-                  name="attendsBrunch"
-                  checked={attendsBrunch === value}
-                  onChange={() => setAttendsBrunch(value)}
-                  className="sr-only peer"
-                />
-                <div className="px-4 py-3 border border-stone-200 text-center text-sm text-stone-500 peer-checked:border-stone-700 peer-checked:text-stone-700 peer-checked:bg-stone-50 transition-all hover:border-stone-300">
-                  {label}
-                </div>
-              </label>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* Message */}
       <div className="pt-2 space-y-2">
