@@ -46,7 +46,7 @@ export default function Home() {
        
         <div className="w-12 h-px bg-stone-300 mx-auto mb-8" />
           <p className="text-lg text-stone-500 mb-10 max-w-md mx-auto" style={{ fontFamily: "var(--font-serif)"}}>  
-          Dîtes-nous avant le 15 juin si vous serez présents pour partager ce moment avec nous ! 
+          Dites-nous avant le 15 juin si vous serez présents pour partager ce moment avec nous ! 
           </p>
         <Link
           href="/rsvp"

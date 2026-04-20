@@ -3,6 +3,7 @@
 import { useState } from "react";
 import FamilyRSVPForm from "@/components/rsvp/FamilyRSVPForm";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { MEAL_OPTIONS } from "@/lib/constants";
 
 type GuestData = {
   id: number;
@@ -32,7 +33,8 @@ type GuestData = {
 type Step =
   | { name: "identify" }
   | { name: "disambiguate"; guests: GuestData[] }
-  | { name: "form"; guest: GuestData };
+  | { name: "form"; guest: GuestData }
+  | { name: "already-submitted"; guest: GuestData };
 
 export default function RSVPLookup() {
   const [firstName, setFirstName] = useState("");
@@ -65,7 +67,10 @@ export default function RSVPLookup() {
           "Nous n'avons pas trouvé votre nom. Vérifiez l'orthographe ou contactez Maëliss & Stanislas."
         );
       } else if (guests.length === 1) {
-        setStep({ name: "form", guest: guests[0] });
+        const guest = guests[0];
+        const familyGuests = guest.family?.guests ?? [guest];
+        const alreadySubmitted = familyGuests.some((g) => g.attending !== null);
+        setStep(alreadySubmitted ? { name: "already-submitted", guest } : { name: "form", guest });
       } else {
         setStep({ name: "disambiguate", guests });
       }
@@ -143,6 +148,63 @@ export default function RSVPLookup() {
           className="text-xs text-stone-400 hover:text-stone-600 transition-colors"
         >
           ← Recommencer
+        </button>
+      </div>
+    );
+  }
+
+  if (step.name === "already-submitted") {
+    const { guest } = step;
+    const familyGuests = guest.family?.guests ?? [guest];
+    const attendsBrunch = guest.family?.attendsBrunch ?? guest.attendsBrunch;
+    const message = guest.family?.message ?? guest.message;
+
+    return (
+      <div className="space-y-6">
+        <div className="text-center">
+          <p className="text-2xl mb-2" style={{ fontFamily: "var(--font-serif)" }}>
+            RSVP envoyé !
+          </p>
+          <p className="text-stone-500 text-sm">
+            Merci de nous contacter si vous souhaitez apporter des modifications.
+          </p>
+        </div>
+
+        <div className="border-t border-stone-100 pt-6 space-y-4">
+          {familyGuests.map((g) => (
+            <div key={g.id} className="flex flex-col gap-1">
+              <p className="text-sm text-stone-700" style={{ fontFamily: "var(--font-serif)" }}>
+                {g.firstName} {g.lastName}
+              </p>
+              <p className="text-xs text-stone-400">
+                {g.attending === true
+                  ? `Présent · ${MEAL_OPTIONS.find((o) => o.value === g.mealPreference)?.label ?? g.mealPreference ?? "—"}`
+                  : g.attending === false
+                  ? "Absent"
+                  : "—"}
+              </p>
+              {g.attending && g.dietaryRestrictions && (
+                <p className="text-xs text-stone-400 italic">{g.dietaryRestrictions}</p>
+              )}
+            </div>
+          ))}
+
+          {attendsBrunch !== null && (
+            <div className="pt-2 border-t border-stone-100">
+              <p className="text-xs text-stone-400">
+                Brunch : {attendsBrunch ? "Présent" : "Absent"}
+              </p>
+            </div>
+          )}
+
+        </div>
+
+        <button
+          type="button"
+          onClick={reset}
+          className="text-xs text-stone-400 hover:text-stone-600 transition-colors"
+        >
+          ← Retour
         </button>
       </div>
     );
