@@ -18,8 +18,8 @@ export const WEDDING = {
 
 
 export const MEAL_OPTIONS = [
-  { value: "volaille", label: "Volaille" },
-  { value: "risotto", label: "Risotto" },
+    { value: "vege", label: "Menu végétarien" },
+    { value: "viande", label: "Menu avec viande (volaille)" },
 ] as const;
 
 export type MealOption = (typeof MEAL_OPTIONS)[number]["value"];

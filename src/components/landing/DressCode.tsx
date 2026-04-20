@@ -31,17 +31,17 @@ export default function DressCode() {
                 key={seal.src}
                 src={seal.src}
                 alt={seal.alt}
-                width={32}
-                height={74}
-                className="object-contain"
+                width={75}
+                height={174}
+                className="object-contain h-16 w-auto"
               />
             ))}
           </div>
           <p
-            className="text-base text-stone-500 mt-4 max-w-md mx-auto"
+            className="text-lg text-stone-500 mt-4 max-w-md mx-auto"
             style={{ fontFamily: "var(--font-serif)"}}
           >
-            Concernant le code vestimentaire il n'y a pas de thème imposé. Mais si vous voulez jouer le jeu, vous pouvez vous inspirer de cette palette de couleur aquarelle qui représente les tons naturels mais colorés de notre mariage.
+            Concernant le code vestimentaire il n'y a pas de thème imposé. Si vous voulez jouer le jeu, vous pouvez vous inspirer de cette palette de couleur aquarelle qui représente les tons naturels mais colorés de notre mariage.
           </p>
         </TornCard>
       </div>

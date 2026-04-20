@@ -62,7 +62,8 @@ export default function EventDetails() {
               Vin d'honneur
             </p>
             <p className="text-2xl text-stone-700 mb-2" style={{ fontFamily: "var(--font-serif)" }}>16h00</p>
-            <p className="text-stone-500 text-sm mb-4">{WEDDING.venue.name}. 15min de l'église</p>
+            <p className="text-stone-500 text-sm mb-4">{WEDDING.venue.name}.</p>
+            <p className="text-stone-400 text-sm mb-4">Situé à 15 minutes en voiture de l'église.</p>
             <a
               href="https://maps.app.goo.gl/mSNSsTyXy2L4mG8w5"
               target="_blank"
@@ -98,35 +99,7 @@ export default function EventDetails() {
               className="inline-block mt-4 text-xs tracking-wider uppercase text-stone-500 border-b border-stone-300 hover:border-stone-500 transition-colors"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-            </a>
-          </TornCard>
-
-          <TornCard
-          imageRight={
-              <Image
-                src="/watercolor-brunch.png"
-                alt=""
-                fill
-                className="object-contain object-right"
-              />
-            }
-            >
-            <p
-              className="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4"
-              style={{ fontFamily: "var(--font-sans)" }}
-            >
-              Brunch du lendemain
-            </p>
-            <p className="text-2xl text-stone-700 mb-2" style={{ fontFamily: "var(--font-serif)" }}>11h00</p>
-            <p className="text-stone-500 text-sm mb-4">{WEDDING.venue.name}</p>
-            <a
-              href="https://maps.app.goo.gl/mSNSsTyXy2L4mG8w5"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-4 text-xs tracking-wider uppercase text-stone-500 border-b border-stone-300 hover:border-stone-500 transition-colors"
-              style={{ fontFamily: "var(--font-sans)" }}
-            >
-              Itinéraire →
+               Itinéraire →
             </a>
           </TornCard>
         </div>

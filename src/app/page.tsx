@@ -19,8 +19,7 @@ export default function Home() {
           style={{ fontFamily: "var(--font-serif)"}}
         >
           Bienvenue sur ce site, nous avons hâte de célébrer ce jour avec vous ! 
-          <br />Vous trouverez ici les informations nécessaires pour organiser votre venue et découvrir le programme de la journée.
-          <br /> N'hésitez pas à nous contacter si vous avez la moindre question, vous trouverez nos coordonnées en bas de page.
+          <br /><br />Vous trouverez ici les informations nécessaires pour organiser votre venue et découvrir le programme de la journée.
         </p>
       </div>
       <EventDetails />
@@ -33,8 +32,8 @@ export default function Home() {
         <Image
           src="/flower-yellow.png"
           alt=""
-          width={132}
-          height={228}
+          height={20}
+          width={120}
           className="absolute -bottom-16 left-7/12 pointer-events-none z-0 opacity-70 rotate-12"
         />
         <div className="relative z-10">
